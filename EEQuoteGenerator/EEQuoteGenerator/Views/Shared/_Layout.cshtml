@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <title>@ViewData["Title"] - EEQuoteGenerator</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib//bootstrap/dist/css/bootstrap-multiselect.css" />
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white navbar-border-bottom box-shadow mb-3 d-flex justify-content-between">
+
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="navbar-image" src="~/images/ee-logo.png" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item pl-1 pr-1">
+                        <a class="navbar-item-custom  @(((string)ViewData["Title"] == "Home") ? "navbar-item-custom-current" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item pl-1 pr-1">
+                        <a class="navbar-item-custom  @(((string)ViewData["Title"] == "Quote Inputs" || (string)ViewData["Title"] == "View Cost Model" || (string)ViewData["Title"] == "Quote Details") ? "navbar-item-custom-current" : "")" asp-area="" asp-controller="GenerateQuote" asp-action="QuoteInputs">Generate Quote</a>
+                    </li>
+                    <li class="nav-item pl-1 pr-1">
+                        <a class="navbar-item-custom @(((string)ViewData["Title"] == "History") ? "navbar-item-custom-current" : "")" asp-area="" asp-controller="History" asp-action="Index">History</a>
+                    </li>
+                    <li class="nav-item pl-1 pr-1">
+                        <a class="navbar-item-custom  @(((string)ViewData["Title"] == "Dashboard") ? "navbar-item-custom-current" : "")" asp-area="" asp-controller="History" asp-action="Dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item pl-1 pr-1">
+                        <a class="navbar-item-custom" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+    <div class="container pl-0 pr-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Environmental Energies Ltd - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

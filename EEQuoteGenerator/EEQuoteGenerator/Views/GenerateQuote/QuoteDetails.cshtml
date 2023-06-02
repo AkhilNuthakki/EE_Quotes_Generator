@@ -1,0 +1,451 @@
+﻿@model EEQuoteGenerator.Models.Quote
+
+@{
+    ViewData["Title"] = "Quote Details";
+    string QuoteReferenceValue = Model.QuoteReference.Replace("_", "/");
+}
+
+<script type="text/javascript">
+    var EmailQuoteUrl = '@Url.Action("EmailQuote", "GenerateQuote")';
+</script>
+
+<div class="container shadow rounded main-div">
+    <div class="row justify-content-between pb-2 pb-md-2 pl-4 pr-4">
+        <div class="col-md-6 col-xs-12 justify-content-center justify-content-md-start pb-2 pb-md-0"> <h5>Quote Details - @QuoteReferenceValue</h5></div>
+        <div class="col-md-6 col-xs-12 d-flex justify-content-center justify-content-md-end">
+            <button class="custom-button-classic custom-button ml-1" onclick="location.href='@Url.Action("EditQuoteInputs", "GenerateQuote" ,new { id=((Model == null) ? "0" : Model.QuoteId.ToString())})';return false;">Edit</button>
+            <button class="custom-button-classic custom-button ml-1" onclick="location.href='@Url.Action("DownloadQuote", "GenerateQuote" ,new { id=((Model == null) ? "0" : Model.QuoteId.ToString())})';return false;">Download</button>
+            <button id="emailBtn" class="custom-button-classic custom-button ml-1" onclick="EmailQuote(@((Model==null) ? "0" : Model.QuoteId.ToString()))">Email</button>
+        </div>
+    </div>
+    <div id="StatusDiv" class="row justify-content-center justify-content-md-end pr-md-1 mr-md-1 pb-2 pb-md-0 d-none">
+        <div id="StatusMessage"></div>
+        <img id="loadingIcon" class="img-fluid loading-icon-invisible" src="~/images/loading.gif" alt="loading" />
+    </div>
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Customer Details</div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.FirstName)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.FirstName)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.LastName)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.LastName)</dd>
+                </dl>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.EmailId)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.EmailId)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.PhoneNumber)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.PhoneNumber)</dd>
+                </dl>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.Address)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.Address)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Customer.PostCode)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Customer.PostCode)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">System Details</div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.MasterMPAN)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.MasterMPAN)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.MasterProjectType)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.MasterProjectType)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.RoofMountType)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.RoofMountType)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.PanelMake)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.PanelMake)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.PanelWatts)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.PanelWatts)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.NoOfPanels)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.NoOfPanels)</dd>
+                </dl>
+
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.SystemSize)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.SystemSize)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.Orientation)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.Orientation)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.Inclination)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.Inclination)</dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.SystemCost)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.SystemCost)</dd>
+                </dl>
+
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.ShadeFactor)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.ShadeFactor)</dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Electricity and Cost Details</div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.CurrentElectricityCost)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.CurrentElectricityCost)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.GreenLevyTaxesCost)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.GreenLevyTaxesCost)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.TotalCurrentElectricityCost)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.TotalCurrentElectricityCost)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.PercetageElectricityExported)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.PercetageElectricityExported)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AssumedExport)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AssumedExport)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.ExportTariff)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.ExportTariff)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AnnualMaintenancPackage)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AnnualMaintenancPackage)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AnnualInsurance)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AnnualInsurance)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AnnualMonitoringOnlyPackage)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AnnualMonitoringOnlyPackage)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AssumedOccupancyType)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AssumedOccupancyType)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AssumedAnnualElectricityConsumption)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AssumedAnnualElectricityConsumption)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.ExpectedSolarPVConsumption)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.ExpectedSolarPVConsumption)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.RPI)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.RPI)</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.AnnualFuelPriceInflation)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.AnnualFuelPriceInflation)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Finance Details</div>
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                    <dl>
+                        <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.BorrowingCost)</dt>
+                        <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.BorrowingCost)</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                    <dl>
+                        <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.PercentageFinanced)</dt>
+                        <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.PercentageFinanced)</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.InvestmentParam.LoanPeriodYears)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.InvestmentParam.LoanPeriodYears)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Component Details</div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.Optimizers)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.Optimizers)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.LiftingEquipment)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.LiftingEquipment)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.WasteRemoval)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.WasteRemoval)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.DcAcIsolators)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.DcAcIsolators)</dt>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.DcAcWiring)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.DcAcWiring)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.DistributionBoardConnection)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.DistributionBoardConnection)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.ElectricalGenerationMeter)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.ElectricalGenerationMeter)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd class="checkbox">@Html.DisplayFor(Quote => Quote.Components.Batteries)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.Batteries)</dt>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.EvChargers)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.EvChargers)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.ImmersionController)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.ImmersionController)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.PegionProofing)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.PegionProofing)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.SystemInstallationWarranties)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.SystemInstallationWarranties)</dt>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.MCSRegistration)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.MCSRegistration)</dt>
+                </dl>
+            </div>
+            <div class="col-md-3 col-xs-12">
+                <dl class="d-flex flex-row">
+                    <dd>@Html.DisplayFor(Quote => Quote.Components.StructuralReport)</dd>
+                    <dt class="pl-2">@Html.DisplayNameFor(Quote => Quote.Components.StructuralReport)</dt>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <dl>
+                    <dt>@Html.DisplayNameFor(Quote => Quote.Components.Inverter)</dt>
+                    <dd class="custom-dd">@Html.DisplayFor(Quote => Quote.Components.Inverter)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Cost Summary</div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Model Type</th>
+                        <th scope="col">Capital Outlay</th>
+                        <th scope="col">Estimated 20 Year Profit</th>
+                        <th scope="col">Yield</th>
+                        <th scope="col">20 Year Co2 Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">@(Model.CostSummary.IsFinanced ? "FINANCED" :"UN-FINANCED")</td>
+                        <td>£@(Model.CostSummary.CapitalOutlay)</td>
+                        <td>£@(Model.CostSummary.EST20YearProfit)</td>
+                        <td>@(Model.CostSummary.Yield)</td>
+                        <td>@(Model.CostSummary.CO2SavingsYear20)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="inputparam-form-cat-div">
+        <div class="inputparam-form-cat-headings">Cost Projections</div>
+        @if (Model.CostProjections != null && Model.CostProjections.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Year </th>
+                            <th scope="col"> Current Cost Per kWp </th>
+                            <th scope="col"> Output kWh </th>
+                            <th scope="col"> Total Annual Cost </th>
+                            <th scope="col"> Total Revenue </th>
+                            <th scope="col"> Cash Flow </th>
+                            <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Borrowed Amount </th>
+                            <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Loan Repayment </th>
+                            <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Interest Amount </th>
+                            <th scope="col"> Final Balance </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var costmodel in Model.CostProjections)
+                        {
+                            <tr>
+                                <td scope="row">@costmodel.Year</td>
+                                <td>@costmodel.CurrentCostPerkWp</td>
+                                <td>@costmodel.OutputkWh</td>
+                                <td>£@costmodel.TotalAnnualCost</td>
+                                <td>£@costmodel.TotalAnnualRevenue</td>
+                                <td>£@costmodel.CashFlow</td>
+                                <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.BorrowedAmount</td>
+                                <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.LoanRepaymentAmount</td>
+                                <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.InterestAmount</td>
+                                <td>£@costmodel.FinalBalance</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+    </div>
+
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

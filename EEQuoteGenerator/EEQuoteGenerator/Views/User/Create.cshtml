@@ -1,0 +1,71 @@
+﻿@model EEQuoteGenerator.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container shadow rounded register-div">
+    <div class="row justify-content-center pb-2"><h3>Create Account</h3></div>
+        <form asp-action="Create" id="registerForm">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label">First Name</label>
+                        <input asp-for="FirstName" class="form-control custom-input pl-0" type="text" placeholder="Type your first name"/>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control custom-input pl-0" type="text" placeholder="Type your last name"/>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="UserEmail" class="control-label">Email</label>
+                        <input asp-for="UserEmail" class="form-control custom-input pl-0" type="email" placeholder="Type your email" />
+                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="UserRole" class="control-label">Role</label>
+                        @Html.DropDownListFor(model => model.UserRole, (IEnumerable
+            <SelectListItem>)ViewData["RolesList"], "--Select role--", htmlAttributes: new { @class = "form-control custom-input pl-0", id = "UserRole"})
+                        <span asp-validation-for="UserRole" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control custom-input pl-0" type="password" id="password" placeholder="Type your password"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">Confirm Password</label>
+                        <input id="confirmpassword" class="form-control custom-input pl-0" type="password" placeholder="Repeat your password" required />
+                        <span id="confirmpassworderror" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row m-0 justify-content-center">
+                <input type="submit" value="Create" class="btn custom-button-classic register-button" />
+            </div>
+        </form>
+    <div class="row text-danger justify-content-center"><p>@ViewBag.ErrorMessage</p></div>
+    <div class="row justify-content-center"><a asp-action="Login">Back to Login</a></div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

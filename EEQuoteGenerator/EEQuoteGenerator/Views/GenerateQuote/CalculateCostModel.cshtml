@@ -1,0 +1,79 @@
+﻿@model EEQuoteGenerator.Models.Quote
+
+@{
+    ViewData["Title"] = "View Cost Model";
+}
+<div class="pt-1 pb-1 mt-1 mb-1 pl-2 pr-2 pl-sm-0 pr-sm-0 d-flex justify-content-between">
+    <input onclick="location.href='@Url.Action("EditQuoteInputs", "GenerateQuote",new { id = Model.QuoteId})';return false;" type="submit" value="Back" class="btn custom-button-classic procced-back-button" />
+    <input onclick="location.href='@Url.Action("QuoteDetails", "GenerateQuote",new { id = Model.QuoteId})';return false;" type="submit" value="Proceed" class="btn custom-button-classic procced-back-button " />
+</div>
+
+<div class="container shadow rounded main-div">
+    <h4 class="pb-4 mb-0">Cost Summary</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Model Type</th>
+                    <th scope="col">Capital Outlay</th>
+                    <th scope="col">Estimated 20 Year Profit</th>
+                    <th scope="col">Yield</th>
+                    <th scope="col">20 Year Co2 Savings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">@(Model.CostSummary.IsFinanced ? "FINANCED" :"UN-FINANCED")</td>
+                    <td>£@(Model.CostSummary.CapitalOutlay)</td>
+                    <td>£@(Model.CostSummary.EST20YearProfit)</td>
+                    <td>@(Model.CostSummary.Yield)</td>
+                    <td>@(Model.CostSummary.CO2SavingsYear20)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container shadow rounded main-div">
+    <h4 class="pb-4 mb-0">Detailed Profit Estimation</h4>
+    @if (Model.CostProjections != null && Model.CostProjections.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"> Year </th>
+                        <th scope="col"> Current Cost Per kWp </th>
+                        <th scope="col"> Output kWh </th>
+                        <th scope="col"> Total Annual Cost </th>
+                        <th scope="col"> Total Revenue </th>
+                        <th scope="col"> Cash Flow </th>
+                        <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Borrowed Amount </th>
+                        <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Loan Repayment </th>
+                        <th scope="col" class="@(Model.CostSummary.IsFinanced ? "" : "d-none")"> Interest Amount </th>
+                        <th scope="col"> Final Balance </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var costmodel in Model.CostProjections)
+                    {
+                        <tr>
+                            <td scope="row">@costmodel.Year</td>
+                            <td>@costmodel.CurrentCostPerkWp</td>
+                            <td>@costmodel.OutputkWh</td>
+                            <td>£@costmodel.TotalAnnualCost</td>
+                            <td>£@costmodel.TotalAnnualRevenue</td>
+                            <td>£@costmodel.CashFlow</td>
+                            <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.BorrowedAmount</td>
+                            <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.LoanRepaymentAmount</td>
+                            <td class="@(Model.CostSummary.IsFinanced ? "" : "d-none")">£@costmodel.InterestAmount</td>
+                            <td>£@costmodel.FinalBalance</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+
+</div>

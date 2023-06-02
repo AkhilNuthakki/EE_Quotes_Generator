@@ -1,0 +1,87 @@
+﻿@*@model IEnumerable<EEQuoteGenerator.Models.Quote>*@
+@model EEQuoteGenerator.Models.Quote
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container shadow rounded text-center p-2">
+    <div class="row">
+            <div class="col-md-3 col-xs-12">
+                <a asp-controller="GenerateQuote" asp-action="QuoteInputs" class="menu-box menu-text-header mt-1 mb-1">
+                    <div class="text-center p-3">
+                        <div class="mb-2">
+                            <img class="img-fluid menu-icon" src="~/images/GenerateQuoteIcon.png" alt="GenerateQuoteImage" />
+                        </div>
+                        <h6 class="mt-2 mb-0">Generate Quote</h6>
+                    </div> 
+                </a>
+            </div>
+            <div class="col-md-9 col-xs-12">
+                <div class="p-2 m-2 text-center">
+                    <p>Generate Quote provides features such as the calculation of both un-financed and financed cost models, generation of the quote, download the generated quote, and email the generated quote directly to the customer.</p>
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-xs-12">
+            <a asp-controller="History" asp-action="Index" class="menu-box menu-text-header mt-1 mb-1">
+                <div class="text-center p-3">
+                    <div class="mb-2">
+                        <img class="img-fluid menu-icon" src="~/images/historyIcon.png" alt="HistoryImage" />
+                    </div>
+                    <h6 class="mt-2 mb-0">Quote History</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div class="p-2 m-2 text-center">
+                <p>Quote History provides the all the quotes in an order that are recently generated. Upto 10 quotes will be visible per page to view complete details, download quote, and email the quote to the customer. Filter by Quote Reference, Customer Email, and Customer Postcode is also available.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-xs-12">
+            <a asp-controller="History" asp-action="Dashboard" class="menu-box menu-text-header mt-1 mb-1">
+                <div class="text-center p-3">
+                    <div class="mb-2">
+                        <img class="img-fluid menu-icon" src="~/images/dashboardIcon.png" alt="DashboardImage" />
+                    </div>
+                    <h6 class="mt-2 mb-0">Dashboard</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div class="p-2 m-2 text-center">
+                <p>Dashboard provides the analytical insights of the generated quote data. The analytical insights include total number of quotes generated using this application so far, total number of users of the application, total number of quotes grouped by zone, and total number of quotes grouped by user. </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div class="row">
+            <div class="container shadow rounded text-center p-2">
+                <h6 class="mt-2">**** Recent Updates ****</h6>
+                <div id="AppUpdatesSlide" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner p-2 m-2">
+                        <div class="carousel-item active">
+                            <p class="d-block w-100">April 4th, 2022  - User can download the quote in orginal format.</p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="d-block w-100">April 19th, 2022 - An automatic email to the customer with quote attached.</p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="d-block w-100">April 30th, 2022 - User can search recently generated quotes in History.</p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="d-block w-100">May 10th, 2022 - Analytical representation of Quote data in Dashboard.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+

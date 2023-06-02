@@ -1,0 +1,292 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Custom Class*/
+/* navbar*/
+.navbar-image{
+    width: 100%;
+    max-width: 290px;
+    min-width: 100px;
+}
+
+.navbar-border-bottom {
+    border-bottom: 3px solid #96BB22;
+}
+
+.navbar-item-custom{
+    display:block;
+    padding: 8px 8px;
+    color : #000000;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.navbar-item-custom:hover {
+    color: #96BB22;
+    text-decoration:none;
+}
+
+.navbar-item-custom-current {
+    color: #96BB22;
+}
+
+/* input*/
+.custom-input {
+    border: 0;
+    border-bottom: 1px solid #96BB22;
+    border-radius: 0;
+    outline: none;
+}
+
+.custom-input:focus{
+    outline: none;
+}
+
+/*button*/
+.custom-button-classic {
+    background-color: #96BB22;
+    border-color: transparent;
+    color: white;
+    width: 100%;
+    text-align: center;
+    outline: none;
+}
+
+.custom-button-classic:hover {
+        background-color: #8daf20;
+        color: white;
+        border-color: transparent;
+        outline: none;
+}
+
+.custom-button-classic:active {
+        background-color: #8daf20;
+        color: white;
+        border-color: transparent;
+        outline: none;
+}
+
+.register-button {
+    width: 50%;
+}
+
+.isDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    color: currentColor;
+    display: inline-block;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.calculate-cost-button {
+    width: 30%;
+    min-width: 170px;
+}
+
+.procced-back-button {
+    width: 20%;
+    min-width: 140px;
+}
+
+.custom-button {
+    width: 15%;
+    min-width: 90px;
+}
+
+/* Login - Register styles */
+.auth-div{
+    width: 100%;
+    max-width: 400px;
+    padding:48px;
+}
+
+.register-div {
+    width: 100%;
+    max-width: 800px;
+    padding: 48px;
+}
+
+.main-div {
+    width: 100%;
+    max-width: 1200px;
+    padding: 36px;
+}
+
+
+
+.inputparam-form-cat-div{
+    position:relative;
+    border: 1px solid #808080;
+    padding: 18px;
+    margin: 18px;
+    border-radius: 10px
+}
+
+.checkbox:checked::after {
+    color: #96BB22;
+}
+
+.inputparam-form-cat-headings {
+    position: absolute;
+    top: -14px;
+    left: 18px;
+    font-weight: 500;
+    background-color: white;
+    color: #96BB22;
+    margin :0;
+    padding: 0;
+}
+
+.welcome-image {
+    width: 40%;
+    max-width:352px;
+    min-width: 100px;
+}
+
+
+.menu-box {
+    background-color: #96BB22;
+    position: relative;
+    border-radius: 5px;
+    transition: opacity ease-in-out .2s;
+    display: block;
+    background-size : cover;
+}
+
+    .menu-box:hover {
+        background-color: #8daf20;
+    }
+
+.menu-text-header {
+    color: white;
+    text-decoration: none;
+}
+
+    .menu-text-header:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    .menu-icon{
+        width: 80px;
+        height: 70px;
+    }
+
+    .loading-icon-visible {
+        height: 35px;
+        visibility:visible;
+    }
+
+.loading-icon-invisible {
+    height: 35px;
+    visibility:hidden;
+}
+
+.custom-dd {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    padding-left: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-bottom: 1px solid #96BB22;
+    border-radius: 0;
+    outline: none;
+}
+
+/* Dashboard */
+.graph-regionwisequotes-visible{
+    width: 100%;
+    height:  250px;
+}
+
+.icon-button {
+    background-color: #96BB22;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+ .icon-button:hover {
+        background-color: #8daf20;
+    }
+
+.icon-clicked {
+    background-color: #7e9e18;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}

@@ -1,0 +1,104 @@
+﻿@model EEQuoteGenerator.ViewModels.Dashboard;
+
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    var RegionWiseQuotesData = @Html.Raw(Json.Serialize(Model.QuotesCountByRegion));
+</script>
+<script type="text/javascript" src="~/js/drawChart.js"></script>
+
+
+<div class="container shadow rounded main-div">
+
+    <div class="col-md-6 col-xs-12 d-flex justify-content-center justify-content-md-start pb-2 p-md-0 mb-md-2"><h4>Dashboard</h4></div>
+    <div class="row mb-2">
+        <div class="col-md-4 col-xs-12 shadow rounded m-2 m-md-0">
+            <dl class="p-3 m-0">
+                <dt class="mb-1">@Html.DisplayNameFor(dashboard => dashboard.TotalQuotesCount)</dt>
+                <dd class="m-0">@Html.DisplayFor(dashboard => dashboard.TotalQuotesCount)</dd>
+            </dl>
+        </div>
+        <div class="col-md-4 col-xs-12 shadow rounded m-2 m-md-0">
+            <dl class="p-3 m-0">
+                <dt class="mb-1">@Html.DisplayNameFor(dashboard => dashboard.UserQuotesCount)</dt>
+                <dd class="m-0">@Html.DisplayFor(dashboard => dashboard.UserQuotesCount)</dd>
+            </dl>
+        </div>
+        <div class="col-md-4 col-xs-12 shadow rounded m-2 m-md-0">
+            <dl class="p-3 m-0">
+                <dt class="mb-1">@Html.DisplayNameFor(dashboard => dashboard.TotalUsersCount)</dt>
+                <dd class="m-0">@Html.DisplayFor(dashboard => dashboard.TotalUsersCount)</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-12 shadow rounded m-2 m-md-0">
+
+            <div class="d-flex justify-content-between justify-content-md-between mt-4">
+                <h5>Region Wise Quotes</h5>
+                <div class="d-none d-lg-inline-flex flex-row">
+                    <button id="tableBtn" class="icon-button mr-1"><i class="fa fa-table"></i></button>
+                    <button id="graphBtn" class="icon-button icon-clicked"><i class="fa fa-bar-chart"></i></button>
+                </div>
+            </div>
+
+            <div id="regionQuotesTable" class="table-responsive p-1 pt-4 d-lg-none">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Region
+                            </th>
+                            <th>
+                                Quotes
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.QuotesCountByRegion)
+                        {
+                            <tr class="">
+                                <td class="">@Html.DisplayFor(modelItem => item.Key)</td>
+                                <td class="">@Html.DisplayFor(modelItem => item.Value)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="barchart_div" class="graph-regionwisequotes-visible d-none d-lg-flex"></div>
+        </div>
+        <div class="col-md-6 col-xs-12 shadow rounded m-2 m-md-0">
+            <div class="d-flex justify-content-center justify-content-md-start mt-4"><h5>User Wise Quotes</h5></div>
+            <div class="table-responsive p-1 pt-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                User Name
+                            </th>
+                            <th>
+                                Quotes
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.QuotesCountByUser)
+                        {
+                            <tr class="">
+                                <td class="">@Html.DisplayFor(modelItem => item.Key)</td>
+                                <td class="">@Html.DisplayFor(modelItem => item.Value)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row"> </div>
+</div>
+

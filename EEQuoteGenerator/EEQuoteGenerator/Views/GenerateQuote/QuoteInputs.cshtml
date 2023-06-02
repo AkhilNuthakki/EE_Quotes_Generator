@@ -1,0 +1,424 @@
+﻿@model EEQuoteGenerator.Models.Quote
+
+@{
+    ViewData["Title"] = "Quote Inputs";
+}
+
+<div class="container shadow rounded main-div">
+    <div class="row justify-content-center pb-2"><h3>Solar Electricity Investment Appraisal</h3></div>
+    <form id="inputParametersForm" asp-action="CalculateCostModel">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row text-danger pl-5 pr-5"><p>@ViewBag.ErrorMessage</p></div>
+        <div class="inputparam-form-cat-div">
+            <div class="inputparam-form-cat-headings">Customer Details</div>
+            <div class="row">
+                <div class="d-none">
+                    <div class="form-group">
+                        <label asp-for="QuoteId" class="control-label">Quote Id</label>
+                        <input asp-for="QuoteId" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.QuoteId)" />
+                        <span asp-validation-for="QuoteId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.FirstName" class="control-label"></label>
+                        <input asp-for="Customer.FirstName" class="form-control custom-input pl-0" type="text" placeholder="Type first name" />
+                        <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.LastName" class="control-label"></label>
+                        <input asp-for="Customer.LastName" class="form-control custom-input pl-0" type="text" placeholder="Type last name" />
+                        <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.EmailId" class="control-label"></label>
+                        <input asp-for="Customer.EmailId" class="form-control custom-input pl-0" type="email" placeholder="Type email" />
+                        <span asp-validation-for="Customer.EmailId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.PhoneNumber" class="control-label"></label>
+                        <input asp-for="Customer.PhoneNumber" class="form-control custom-input pl-0" type="number" placeholder="Type phone number" />
+                        <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.Address" class="control-label"></label>
+                        <input asp-for="Customer.Address" class="form-control custom-input pl-0" type="text" placeholder="Type address" />
+                        <span asp-validation-for="Customer.Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Customer.PostCode" class="control-label"></label>
+                        <input asp-for="Customer.PostCode" class="form-control custom-input pl-0" type="text" placeholder="Type postcode" />
+                        <span asp-validation-for="Customer.PostCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inputparam-form-cat-div">
+            <div class="inputparam-form-cat-headings">System Details</div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="MasterMPAN" class="control-label"></label>
+                        <input asp-for="MasterMPAN" class="form-control custom-input pl-0" type="text" placeholder="Type master MPAN" />
+                        <span asp-validation-for="MasterMPAN" class="text-danger"></span>
+                    </div>
+                </div>               
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.PanelMake" class="control-label"></label>
+                        <input asp-for="InvestmentParam.PanelMake" class="form-control custom-input pl-0" type="text" value="TBC" placeholder="Type panel make" />
+                        <span asp-validation-for="InvestmentParam.PanelMake" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.PanelWatts" class="control-label"></label>
+                        <input id="PanelWatts" asp-for="InvestmentParam.PanelWatts" class="form-control custom-input pl-0" type="number" step="1" min="1" placeholder="Enter panel watts" />
+                        <span asp-validation-for="InvestmentParam.PanelWatts" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.NoOfPanels" class="control-label"></label>
+                        <input id="NoOfPanels" asp-for="InvestmentParam.NoOfPanels" class="form-control custom-input pl-0" type="number" step="1" min="1" placeholder="Enter no of panels" />
+                        <span asp-validation-for="InvestmentParam.NoOfPanels" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.RoofMountType" class="control-label"></label>
+                        @Html.DropDownListFor(model => model.InvestmentParam.RoofMountType, (IEnumerable
+            <SelectListItem>)ViewData["RoofMountList"], "--Select Type--", htmlAttributes: new { @class = "form-control custom-input pl-0" })
+                        <span asp-validation-for="InvestmentParam.RoofMountType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @*<div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label asp-for="InvestmentParam.SystemSize" class="control-label"></label>
+                <input id="SystemSize" asp-for="InvestmentParam.SystemSize" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.00" : Model.InvestmentParam.SystemSize.ToString())" readonly />
+                <span asp-validation-for="InvestmentParam.SystemSize" class="text-danger"></span>
+            </div>
+        </div>*@
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.Orientation" class="control-label"></label>
+                        <input asp-for="InvestmentParam.Orientation" class="form-control custom-input pl-0" type="number" step="5" min="0" max="175" placeholder="Enter orientation" />
+                        <span asp-validation-for="InvestmentParam.Orientation" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.Inclination" class="control-label"></label>
+                        <input asp-for="InvestmentParam.Inclination" class="form-control custom-input pl-0" type="number" step="1" min="0" max="90" placeholder="Enter inclination" />
+                        <span asp-validation-for="InvestmentParam.Inclination" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.SystemCost" class="control-label"></label>
+                        <input asp-for="InvestmentParam.SystemCost" class="form-control custom-input pl-0" type="number" step="10" min="10" placeholder="Enter system cost" />
+                        <span asp-validation-for="InvestmentParam.SystemCost" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.ShadeFactor" class="control-label"></label>
+                        <input asp-for="InvestmentParam.ShadeFactor" class="form-control custom-input pl-0" type="number" step="1" min="0" max="99" placeholder="Enter shade factor" />
+                        <span asp-validation-for="InvestmentParam.ShadeFactor" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="inputparam-form-cat-div">
+            <div class="inputparam-form-cat-headings">Electricity and Cost Details</div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.CurrentElectricityCost" class="control-label"></label>
+                        <input id="CurrentElectricityCost" asp-for="InvestmentParam.CurrentElectricityCost" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.2400" : Model.InvestmentParam.CurrentElectricityCost.ToString())" step="0.0001" min="0.0001" placeholder="Enter current electricity cost" />
+                        <span asp-validation-for="InvestmentParam.CurrentElectricityCost" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.GreenLevyTaxesCost" class="control-label"></label>
+                        <input id="GreenLevyTaxesCost" asp-for="InvestmentParam.GreenLevyTaxesCost" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.1000" : Model.InvestmentParam.GreenLevyTaxesCost.ToString())" step="0.0001" min="0.0001" placeholder="Enter green levy taxes cost" />
+                        <span asp-validation-for="InvestmentParam.GreenLevyTaxesCost" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="col-md-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="InvestmentParam.TotalCurrentElectricityCost" class="control-label">Total Current Electricity Cost</label>
+                            <input id="TotalCurrentElectricityCost" asp-for="InvestmentParam.TotalCurrentElectricityCost" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.0000" : Model.InvestmentParam.TotalCurrentElectricityCost.ToString())" readonly />
+                            <span asp-validation-for="InvestmentParam.TotalCurrentElectricityCost" class="text-danger"></span>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.PercetageElectricityExported" class="control-label"></label>
+                        <input asp-for="InvestmentParam.PercetageElectricityExported" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.PercetageElectricityExported.ToString())" step="1" placeholder="0" />
+                        <span asp-validation-for="InvestmentParam.PercetageElectricityExported" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AssumedExport" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AssumedExport" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.AssumedExport.ToString())" step="1" placeholder="Enter assumed export" />
+                        <span asp-validation-for="InvestmentParam.AssumedExport" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.ExportTariff" class="control-label"></label>
+                        <input asp-for="InvestmentParam.ExportTariff" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.020" : Model.InvestmentParam.ExportTariff.ToString())" step="0.0001" placeholder="Enter export tariff" />
+                        <span asp-validation-for="InvestmentParam.ExportTariff" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AnnualMaintenancPackage" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AnnualMaintenancPackage" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.AnnualMaintenancPackage.ToString())" step="1" placeholder="Enter annual maintenance package" />
+                        <span asp-validation-for="InvestmentParam.AnnualMaintenancPackage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AnnualInsurance" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AnnualInsurance" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.AnnualInsurance.ToString())" step="1" placeholder="Enter annual insurance" />
+                        <span asp-validation-for="InvestmentParam.AnnualInsurance" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AnnualMonitoringOnlyPackage" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AnnualMonitoringOnlyPackage" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.AnnualMonitoringOnlyPackage.ToString())" step="1" placeholder="Enter annual monitoring package" />
+                        <span asp-validation-for="InvestmentParam.AnnualMonitoringOnlyPackage" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AssumedAnnualElectricityConsumption" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AssumedAnnualElectricityConsumption" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.AssumedAnnualElectricityConsumption.ToString())" step="1" min="1" placeholder="Enter annual consumption" />
+                        <span asp-validation-for="InvestmentParam.AssumedAnnualElectricityConsumption" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.ExpectedSolarPVConsumption" class="control-label"></label>
+                        <input asp-for="InvestmentParam.ExpectedSolarPVConsumption" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.ExpectedSolarPVConsumption.ToString())" step="1" min="1" placeholder="Enter solar PV consumption" />
+                        <span asp-validation-for="InvestmentParam.ExpectedSolarPVConsumption" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AssumedOccupancyType" class="control-label"></label>
+                        @Html.DropDownListFor(model => model.InvestmentParam.AssumedOccupancyType, (IEnumerable
+            <SelectListItem>)ViewData["OccupancyTypeList"], "--Select Type--", htmlAttributes: new { @class = "form-control custom-input pl-0" })
+                        <span asp-validation-for="InvestmentParam.AssumedOccupancyType" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.RPI" class="control-label"></label>
+                        <input asp-for="InvestmentParam.RPI" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "3.0" : Model.InvestmentParam.RPI.ToString())" step="0.1" min="1" placeholder="Enter RPI" />
+                        <span asp-validation-for="InvestmentParam.RPI" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.AnnualFuelPriceInflation" class="control-label"></label>
+                        <input asp-for="InvestmentParam.AnnualFuelPriceInflation" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "5.0" : Model.InvestmentParam.AnnualFuelPriceInflation.ToString())" step="0.1" min="1" placeholder="Enter annual fuel price inflation" />
+                        <span asp-validation-for="InvestmentParam.AnnualFuelPriceInflation" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="inputparam-form-cat-div">
+            <div class="inputparam-form-cat-headings">Finance Details</div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.BorrowingCost" class="control-label"></label>
+                        <input id="BorrowingCost" asp-for="InvestmentParam.BorrowingCost" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.0" : Model.InvestmentParam.BorrowingCost.ToString())" step="0.1" placeholder="Enter Borrwoing cost" />
+                        <span asp-validation-for="InvestmentParam.BorrowingCost" class="text-danger"></span>
+                        <span id="BorrowingCostError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.PercentageFinanced" class="control-label"></label>
+                        <input id="PercentageFinanced" asp-for="InvestmentParam.PercentageFinanced" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0.0" : Model.InvestmentParam.PercentageFinanced.ToString())" step="0.1" placeholder="Enter percentage financed" />
+                        <span asp-validation-for="InvestmentParam.PercentageFinanced" class="text-danger"></span>
+                        <span id="PercentageFinancedError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="InvestmentParam.LoanPeriodYears" class="control-label"></label>
+                        <input id="LoanPeriodYears" asp-for="InvestmentParam.LoanPeriodYears" class="form-control custom-input pl-0" type="number" value="@((Model == null) ? "0" : Model.InvestmentParam.LoanPeriodYears.ToString())" step="1" placeholder="Enter loan period" />
+                        <span asp-validation-for="InvestmentParam.LoanPeriodYears" class="text-danger"></span>
+                        <span id="LoanPeriodYearsError" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inputparam-form-cat-div">
+            <div class="inputparam-form-cat-headings">Component Details</div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.Optimizers" /> @Html.DisplayNameFor(model => model.Components.Optimizers)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.LiftingEquipment" /> @Html.DisplayNameFor(model => model.Components.LiftingEquipment)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.WasteRemoval" /> @Html.DisplayNameFor(model => model.Components.WasteRemoval)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.DcAcIsolators" /> @Html.DisplayNameFor(model => model.Components.DcAcIsolators)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.DcAcWiring" /> @Html.DisplayNameFor(model => model.Components.DcAcWiring)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.DistributionBoardConnection" /> @Html.DisplayNameFor(model => model.Components.DistributionBoardConnection)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.ElectricalGenerationMeter" /> @Html.DisplayNameFor(model => model.Components.ElectricalGenerationMeter)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.Batteries" /> @Html.DisplayNameFor(model => model.Components.Batteries)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.EvChargers" /> @Html.DisplayNameFor(model => model.Components.EvChargers)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.ImmersionController" /> @Html.DisplayNameFor(model => model.Components.ImmersionController)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.PegionProofing" /> @Html.DisplayNameFor(model => model.Components.PegionProofing)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.SystemInstallationWarranties" /> @Html.DisplayNameFor(model => model.Components.SystemInstallationWarranties)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.MCSRegistration" /> @Html.DisplayNameFor(model => model.Components.MCSRegistration)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Components.StructuralReport" /> @Html.DisplayNameFor(model => model.Components.StructuralReport)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Components.Inverter" class="control-label"></label>
+                        <input asp-for="Components.Inverter" class="form-control custom-input pl-0" type="number" step="1" min="1" value="@((Model == null) ? "1" : Model.Components.Inverter.ToString())" />
+                        <span asp-validation-for="Components.Inverter" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row m-0 justify-content-center">
+            <input type="submit" value="Calculate Cost Model" class="btn custom-button-classic calculate-cost-button" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
